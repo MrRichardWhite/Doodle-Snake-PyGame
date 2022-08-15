@@ -128,33 +128,34 @@ class Game:
         if not self.mute: self.screen.blit(self.images["speaker"], (0, 0))
 
     def update(self, event):
+        if not self.pause:
 
-        for direction, status in self.arrows_statuses.items():
-            if status == "clicked":
-                self.board.snake.direction = direction
-                if not self.mute: self.sounds["change direction"][random.choice([12, 15, 16, 18, 19, 20])].play()
+            for direction, status in self.arrows_statuses.items():
+                if status == "clicked":
+                    self.board.snake.direction = direction
+                    if not self.mute: self.sounds["change direction"][random.choice([12, 15, 16, 18, 19, 20])].play()
 
-        x, y = pg.mouse.get_pos()
+            x, y = pg.mouse.get_pos()
 
-        if 940 <= x <= 1260 and 255 <= y <= 395:
-            if event.type == pg.MOUSEBUTTONDOWN: self.set_arrow_status("up", "clicked")
-            if event.type == pg.MOUSEBUTTONUP:   self.set_arrow_status("up", "unclicked")
-        if 940 <= x <= 1260 and 440 <= y <= 580:
-            if event.type == pg.MOUSEBUTTONDOWN: self.set_arrow_status("down", "clicked")
-            if event.type == pg.MOUSEBUTTONUP:   self.set_arrow_status("down", "unclicked")
-        if 950 <= x <= 1090 and 270 <= y <= 590:
-            if event.type == pg.MOUSEBUTTONDOWN: self.set_arrow_status("left", "clicked")
-            if event.type == pg.MOUSEBUTTONUP:   self.set_arrow_status("left", "unclicked")
-        if 1130 <= x <= 1280 and 270 <= y <= 590:
-            if event.type == pg.MOUSEBUTTONDOWN: self.set_arrow_status("right", "clicked")
-            if event.type == pg.MOUSEBUTTONUP:   self.set_arrow_status("right", "unclicked")
+            if 940 <= x <= 1260 and 255 <= y <= 395:
+                if event.type == pg.MOUSEBUTTONDOWN: self.set_arrow_status("up", "clicked")
+                if event.type == pg.MOUSEBUTTONUP:   self.set_arrow_status("up", "unclicked")
+            if 940 <= x <= 1260 and 440 <= y <= 580:
+                if event.type == pg.MOUSEBUTTONDOWN: self.set_arrow_status("down", "clicked")
+                if event.type == pg.MOUSEBUTTONUP:   self.set_arrow_status("down", "unclicked")
+            if 950 <= x <= 1090 and 270 <= y <= 590:
+                if event.type == pg.MOUSEBUTTONDOWN: self.set_arrow_status("left", "clicked")
+                if event.type == pg.MOUSEBUTTONUP:   self.set_arrow_status("left", "unclicked")
+            if 1130 <= x <= 1280 and 270 <= y <= 590:
+                if event.type == pg.MOUSEBUTTONDOWN: self.set_arrow_status("right", "clicked")
+                if event.type == pg.MOUSEBUTTONUP:   self.set_arrow_status("right", "unclicked")
 
-        if event.type == pg.KEYDOWN:
-            for key, direction in zip([pg.K_UP, pg.K_DOWN, pg.K_LEFT, pg.K_RIGHT], directions):
-                if event.key == key: self.set_arrow_status(direction, "clicked")
-        elif event.type == pg.KEYUP:
-            for key, direction in zip([pg.K_UP, pg.K_DOWN, pg.K_LEFT, pg.K_RIGHT], directions):
-                if event.key == key: self.set_arrow_status(direction, "unclicked")
+            if event.type == pg.KEYDOWN:
+                for key, direction in zip([pg.K_UP, pg.K_DOWN, pg.K_LEFT, pg.K_RIGHT] + [pg.K_w, pg.K_s, pg.K_a, pg.K_d], directions*2):
+                    if event.key == key: self.set_arrow_status(direction, "clicked")
+            elif event.type == pg.KEYUP:
+                for key, direction in zip([pg.K_UP, pg.K_DOWN, pg.K_LEFT, pg.K_RIGHT] + [pg.K_w, pg.K_s, pg.K_a, pg.K_d], directions*2):
+                    if event.key == key: self.set_arrow_status(direction, "unclicked")
 
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_SPACE: self.pause = not self.pause

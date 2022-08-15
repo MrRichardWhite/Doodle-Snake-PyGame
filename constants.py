@@ -5,13 +5,14 @@ import pygame as pg
 
 # ---------------------------------------------------------------- #
 
-DELAY_GAME = 10
-DELAY_SNAKE = 0.25
+DELAY = 10
 
 WIDTH  = 21
 HEIGHT = 19
 
 grid = list(itertools.product(range(WIDTH), range(HEIGHT)))
+
+icon = pg.image.load("images//icon.png")
 
 statuses = ["clicked", "unclicked"]
 directions = ["up", "down", "left", "right"]

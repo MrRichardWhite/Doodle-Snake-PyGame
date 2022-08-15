@@ -14,7 +14,6 @@ pg.display.set_caption("Doodle-Snake")
 
 screen = pg.display.set_mode((1280, 720))
 
-icon = pg.image.load("icon.png")
 pg.display.set_icon(icon)
 
 # ---------------------------------------------------------------- #
@@ -25,7 +24,7 @@ run = True
 while run:
 
     pg.display.update()
-    pg.time.delay(DELAY_GAME)
+    pg.time.delay(DELAY)
 
     screen.blit(background, (0, 0))
     game.draw()
